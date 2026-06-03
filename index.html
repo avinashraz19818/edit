@@ -5,368 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZAYRO HTML EDITOR PANEL</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@600;700&family=Orbitron:wght@700;900&display=swap');
-
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --bg2: #0f0f1a;
-    --bg3: #13131f;
-    --card: #16162a;
-    --border: #2a2a4a;
-    --accent: #7c3aed;
-    --accent2: #a855f7;
-    --green: #22c55e;
-    --red: #ef4444;
-    --orange: #f97316;
-    --cyan: #06b6d4;
-    --yellow: #eab308;
-    --text: #e2e8f0;
-    --text2: #94a3b8;
-    --text3: #64748b;
+    --bg: #0a0a0f; --bg2: #0f0f1a; --bg3: #13131f; --card: #16162a;
+    --border: #2a2a4a; --accent: #7c3aed; --accent2: #a855f7;
+    --green: #22c55e; --red: #ef4444; --orange: #f97316;
+    --cyan: #06b6d4; --yellow: #eab308; --text: #e2e8f0;
+    --text2: #94a3b8; --text3: #64748b;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
-
-  /* Scanline effect */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'Orbitron', monospace; min-height: 100vh; font-size: 13px; }
   .header {
     background: linear-gradient(135deg, #0f0f1a 0%, #1a0a2e 100%);
     border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
+    padding: 14px 20px;
     display: flex; align-items: center; justify-content: space-between;
     position: sticky; top: 0; z-index: 100;
   }
   .header-logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 18px; font-weight: 900;
+    font-size: 16px; font-weight: 900;
     background: linear-gradient(90deg, #7c3aed, #a855f7, #06b6d4);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     letter-spacing: 3px;
   }
-  .header-tag {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px; color: var(--text3);
-    background: var(--card); border: 1px solid var(--border);
-    padding: 4px 10px; border-radius: 4px;
-  }
-
-  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
-
-  /* Upload Zone */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 10px; font-family: 'Share Tech Mono', monospace; }
+  .badge-cyan { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
+  .badge-green { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+  .badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); border: 1px solid rgba(234,179,8,0.3); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
   .upload-zone {
-    border: 2px dashed var(--accent);
-    border-radius: 16px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(6,182,212,0.05));
-    position: relative;
-    overflow: hidden;
+    border: 2px dashed var(--accent); border-radius: 14px; padding: 40px;
+    text-align: center; cursor: pointer; transition: all 0.3s;
+    background: rgba(124,58,237,0.04);
   }
-  .upload-zone::before {
-    content: '';
-    position: absolute; inset: -2px;
-    background: linear-gradient(90deg, #7c3aed, #06b6d4, #7c3aed);
-    border-radius: 16px;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s;
-    background-size: 200%;
-    animation: borderMove 3s linear infinite;
-  }
-  .upload-zone:hover::before, .upload-zone.drag-over::before { opacity: 1; }
   .upload-zone:hover, .upload-zone.drag-over {
-    background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(6,182,212,0.1));
+    background: rgba(124,58,237,0.1); border-color: var(--accent2);
   }
-  @keyframes borderMove { 0%{background-position:0%} 100%{background-position:200%} }
-  .upload-icon { font-size: 48px; margin-bottom: 12px; }
-  .upload-title { font-family: 'Orbitron', monospace; font-size: 16px; color: var(--accent2); margin-bottom: 8px; }
-  .upload-sub { font-size: 13px; color: var(--text3); font-family: 'Share Tech Mono', monospace; }
+  .upload-icon { font-size: 40px; margin-bottom: 10px; }
+  .upload-title { font-size: 14px; color: var(--accent2); margin-bottom: 6px; letter-spacing: 2px; }
+  .upload-sub { font-size: 11px; color: var(--text3); font-family: 'Share Tech Mono', monospace; }
   #fileInput { display: none; }
-
-  /* Main Grid */
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
-
-  .panel {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .panel-header {
-    background: linear-gradient(90deg, rgba(124,58,237,0.2), rgba(6,182,212,0.1));
-    padding: 12px 18px;
-    display: flex; align-items: center; gap: 10px;
-    border-bottom: 1px solid var(--border);
-    font-family: 'Orbitron', monospace;
-    font-size: 12px; letter-spacing: 2px; color: var(--accent2);
-  }
-  .panel-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .dot-red { background: var(--red); box-shadow: 0 0 6px var(--red); }
-  .dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
-  .dot-yellow { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
-  .panel-body { padding: 18px; }
-
-  /* Field Groups */
-  .field-group {
-    margin-bottom: 20px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .field-group-title {
-    background: rgba(124,58,237,0.15);
-    padding: 8px 14px;
-    font-family: 'Orbitron', monospace;
-    font-size: 10px; letter-spacing: 2px; color: var(--accent2);
-    display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 40px 1fr;
-    gap: 0;
-    align-items: center;
-    padding: 10px 14px;
-    border-bottom: 1px solid rgba(42,42,74,0.5);
-  }
-  .field-row:last-child { border-bottom: none; }
-  .field-label {
-    font-size: 10px; color: var(--text3);
-    font-family: 'Share Tech Mono', monospace;
-    margin-bottom: 4px; display: block;
-  }
-  .field-val {
-    font-size: 12px; color: var(--cyan);
-    font-family: 'Share Tech Mono', monospace;
-    word-break: break-all; line-height: 1.4;
-  }
-  .field-val.empty { color: var(--text3); font-style: italic; }
-  .arrow-icon {
-    text-align: center; font-size: 18px; color: var(--accent);
-    font-weight: 900;
-  }
-  .field-input {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 8px 10px;
-    color: var(--text);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    width: 100%;
-    transition: border-color 0.2s;
-    resize: vertical;
-    min-height: 38px;
-  }
-  .field-input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(124,58,237,0.2);
-  }
-  .field-input.changed {
-    border-color: var(--green);
-    box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
-  }
-
-  /* Stats bar */
-  .stats-bar {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  .stat-chip {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 14px;
-    display: flex; align-items: center; gap: 8px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-  }
-  .stat-num { font-size: 18px; font-weight: 700; }
-  .stat-num.green { color: var(--green); }
-  .stat-num.cyan { color: var(--cyan); }
-  .stat-num.orange { color: var(--orange); }
-  .stat-num.yellow { color: var(--yellow); }
-
-  /* Buttons */
-  .btn {
-    border: none; cursor: pointer; border-radius: 8px;
-    font-family: 'Orbitron', monospace; font-weight: 700;
-    letter-spacing: 1px; transition: all 0.2s ease;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-primary {
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
-    color: white; padding: 12px 24px; font-size: 12px;
-    box-shadow: 0 4px 15px rgba(124,58,237,0.4);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124,58,237,0.6); }
-  .btn-primary:active { transform: translateY(0); }
-  .btn-success {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    color: white; padding: 12px 24px; font-size: 12px;
-    box-shadow: 0 4px 15px rgba(34,197,94,0.3);
-  }
-  .btn-success:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.5); }
-  .btn-danger {
-    background: linear-gradient(135deg, #b91c1c, #ef4444);
-    color: white; padding: 10px 18px; font-size: 11px;
-    box-shadow: 0 4px 12px rgba(239,68,68,0.3);
-  }
-  .btn-cyan {
-    background: linear-gradient(135deg, #0891b2, #06b6d4);
-    color: white; padding: 10px 18px; font-size: 11px;
-    box-shadow: 0 4px 12px rgba(6,182,212,0.3);
-  }
-  .btn-cyan:hover { transform: translateY(-2px); }
-  .btn-sm { padding: 6px 12px; font-size: 10px; }
-  .btn-full { width: 100%; justify-content: center; }
-
-  /* Action area */
-  .action-bar {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    padding: 18px;
-    background: rgba(124,58,237,0.05);
-    border-top: 1px solid var(--border);
-  }
-
-  /* Change log */
-  .change-log {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: 12px;
-  }
-  .log-entry {
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(42,42,74,0.5);
-    color: var(--text2);
-  }
-  .log-entry:last-child { border-bottom: none; }
-  .log-entry .old { color: var(--red); text-decoration: line-through; }
-  .log-entry .new { color: var(--green); }
-  .log-entry .count { color: var(--yellow); }
-
-  /* Toast */
-  .toast-container {
-    position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .toast {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    display: flex; align-items: center; gap: 10px;
-    animation: slideIn 0.3s ease;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    min-width: 280px;
-  }
+  .stats-bar { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 14px; align-items: center; }
+  .stat-chip { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-family: 'Share Tech Mono', monospace; font-size: 11px; }
+  .stat-num { font-size: 16px; font-weight: 700; }
+  .green { color: var(--green); } .cyan { color: var(--cyan); } .orange { color: var(--orange); } .yellow { color: var(--yellow); }
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+  .tab { padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 10px; letter-spacing: 1px; border: 1px solid var(--border); color: var(--text3); transition: all 0.2s; }
+  .tab.active { background: rgba(124,58,237,0.2); color: var(--accent2); border-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .btn { border: none; cursor: pointer; border-radius: 8px; font-family: 'Orbitron', monospace; font-weight: 700; letter-spacing: 1px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; padding: 10px 20px; font-size: 11px; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-success { background: linear-gradient(135deg, #16a34a, #22c55e); color: white; padding: 10px 20px; font-size: 11px; }
+  .btn-danger { background: linear-gradient(135deg, #b91c1c, #ef4444); color: white; padding: 8px 14px; font-size: 10px; }
+  .btn-cyan { background: linear-gradient(135deg, #0891b2, #06b6d4); color: white; padding: 8px 14px; font-size: 10px; }
+  .btn-sm { padding: 5px 10px; font-size: 9px; }
+  .hidden { display: none !important; }
+  .field-group { margin-bottom: 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .field-group-title { background: rgba(124,58,237,0.15); padding: 8px 14px; font-size: 10px; letter-spacing: 2px; color: var(--accent2); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .field-item { border-bottom: 1px solid rgba(42,42,74,0.5); padding: 12px 14px; }
+  .field-item:last-child { border-bottom: none; }
+  .field-label { font-size: 10px; color: var(--text3); font-family: 'Share Tech Mono', monospace; display: block; margin-bottom: 4px; }
+  .old-val { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--cyan); background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2); border-radius: 6px; padding: 6px 10px; margin-bottom: 8px; word-break: break-all; line-height: 1.5; display: block; }
+  .old-val.empty { color: var(--text3); font-style: italic; background: rgba(100,116,139,0.08); border-color: rgba(100,116,139,0.2); }
+  .new-label { font-size: 10px; color: var(--green); font-family: 'Share Tech Mono', monospace; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .field-input { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 12px; width: 100%; transition: border-color 0.2s; resize: vertical; min-height: 38px; }
+  .field-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(124,58,237,0.2); }
+  .field-input.changed { border-color: var(--green); box-shadow: 0 0 0 2px rgba(34,197,94,0.15); }
+  .action-bar { display: flex; gap: 10px; flex-wrap: wrap; padding: 16px; background: rgba(124,58,237,0.05); border-top: 1px solid var(--border); }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
+  .panel-header { background: linear-gradient(90deg, rgba(124,58,237,0.2), rgba(6,182,212,0.1)); padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: 2px; color: var(--accent2); }
+  .panel-body { padding: 16px; }
+  .panel-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot-red { background: var(--red); }
+  .dot-green { background: var(--green); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-cyan { background: var(--cyan); }
+  .arrow-divider { display: flex; align-items: center; gap: 8px; margin: 6px 0; color: var(--accent); font-size: 14px; }
+  .arrow-divider::before, .arrow-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 6px; }
+  .toast { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-family: 'Share Tech Mono', monospace; font-size: 11px; display: flex; align-items: center; gap: 8px; animation: slideIn 0.3s ease; min-width: 240px; }
   .toast.success { border-left: 3px solid var(--green); }
   .toast.error { border-left: 3px solid var(--red); }
   .toast.info { border-left: 3px solid var(--cyan); }
   @keyframes slideIn { from{transform:translateX(100%);opacity:0} to{transform:translateX(0);opacity:1} }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center; padding: 60px 20px;
-    color: var(--text3); font-family: 'Share Tech Mono', monospace;
-  }
-  .empty-state .big-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
-  .empty-state p { font-size: 13px; }
-
-  /* Section hidden/shown */
-  .hidden { display: none !important; }
-
-  /* Full width panel */
-  .panel-full { grid-column: 1 / -1; }
-
-  /* Custom replace section */
-  .custom-replace {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-  .custom-replace-row {
-    display: grid; grid-template-columns: 1fr 30px 1fr 80px;
-    gap: 8px; align-items: flex-end; margin-bottom: 8px;
-  }
-  .custom-replace-row:last-child { margin-bottom: 0; }
-
-  /* Tabs */
-  .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
-  .tab {
-    padding: 8px 16px; border-radius: 6px; cursor: pointer;
-    font-family: 'Orbitron', monospace; font-size: 10px; letter-spacing: 1px;
-    border: 1px solid var(--border); color: var(--text3);
-    transition: all 0.2s;
-  }
-  .tab.active {
-    background: rgba(124,58,237,0.2); color: var(--accent2);
-    border-color: var(--accent);
-  }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* Preview highlight */
-  .highlight-change {
-    background: rgba(34,197,94,0.1);
-    border: 1px solid rgba(34,197,94,0.3);
-    border-radius: 4px;
-    padding: 2px 6px;
-  }
-
-  scrollbar-width: thin;
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  .badge {
-    display: inline-block; padding: 2px 8px; border-radius: 4px;
-    font-size: 10px; font-family: 'Share Tech Mono', monospace; font-weight: 700;
-  }
-  .badge-green { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
-  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
-  .badge-cyan { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text3); font-family: 'Share Tech Mono', monospace; }
+  .change-log { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: 'Share Tech Mono', monospace; font-size: 11px; max-height: 300px; overflow-y: auto; }
+  .log-entry { padding: 5px 0; border-bottom: 1px solid rgba(42,42,74,0.5); color: var(--text2); }
+  .log-entry:last-child { border-bottom: none; }
+  .log-entry .old { color: var(--red); text-decoration: line-through; }
+  .log-entry .new { color: var(--green); }
+  .log-entry .cnt { color: var(--yellow); }
+  .custom-replace-row { display: grid; grid-template-columns: 1fr 30px 1fr 70px; gap: 8px; align-items: flex-end; margin-bottom: 10px; }
+  ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-logo">⚡ ZAYRO PANEL</div>
-  <div style="display:flex;gap:12px;align-items:center;">
+  <div style="display:flex;gap:10px;align-items:center;">
     <span class="badge badge-cyan" id="filenameBadge">NO FILE</span>
-    <span class="header-tag">HTML SMART EDITOR v3.0</span>
+    <span style="font-size:10px;color:var(--text3);font-family:'Share Tech Mono',monospace;">HTML SMART EDITOR v4.0</span>
   </div>
 </div>
 
 <div class="container">
-
-  <!-- Upload Zone -->
   <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
     <div class="upload-icon">📂</div>
     <div class="upload-title">DROP HTML FILE HERE</div>
@@ -374,578 +119,276 @@
     <input type="file" id="fileInput" accept=".html,.htm">
   </div>
 
-  <!-- Editor Area (hidden until file loaded) -->
   <div id="editorArea" class="hidden">
-
-    <!-- Stats -->
-    <div class="stats-bar" style="margin-top:20px;">
-      <div class="stat-chip">
-        <div>
-          <div class="stat-num green" id="changesCount">0</div>
-          <div style="font-size:10px;color:var(--text3)">CHANGES</div>
-        </div>
-      </div>
-      <div class="stat-chip">
-        <div>
-          <div class="stat-num cyan" id="linksCount">0</div>
-          <div style="font-size:10px;color:var(--text3)">LINKS FOUND</div>
-        </div>
-      </div>
-      <div class="stat-chip">
-        <div>
-          <div class="stat-num orange" id="fbFound">0</div>
-          <div style="font-size:10px;color:var(--text3)">FIREBASE FIELDS</div>
-        </div>
-      </div>
-      <div class="stat-chip">
-        <div>
-          <div class="stat-num yellow" id="fileSizeKB">0 KB</div>
-          <div style="font-size:10px;color:var(--text3)">FILE SIZE</div>
-        </div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center;">
+    <div class="stats-bar">
+      <div class="stat-chip"><div class="stat-num green" id="changesCount">0</div><div style="font-size:10px;color:var(--text3)">CHANGES</div></div>
+      <div class="stat-chip"><div class="stat-num cyan" id="linksCount">0</div><div style="font-size:10px;color:var(--text3)">LINKS</div></div>
+      <div class="stat-chip"><div class="stat-num orange" id="fbFound">0</div><div style="font-size:10px;color:var(--text3)">FIREBASE FIELDS</div></div>
+      <div class="stat-chip"><div class="stat-num yellow" id="fileSizeKB">0 KB</div><div style="font-size:10px;color:var(--text3)">FILE SIZE</div></div>
+      <div style="margin-left:auto;display:flex;gap:8px;">
         <button class="btn btn-danger" onclick="resetAll()">🗑 RESET</button>
-        <button class="btn btn-cyan" onclick="downloadHTML()">💾 DOWNLOAD HTML</button>
+        <button class="btn btn-cyan" onclick="downloadHTML()">💾 DOWNLOAD</button>
       </div>
     </div>
 
-    <!-- Tabs -->
     <div class="tabs">
       <div class="tab active" onclick="switchTab('smart')">⚡ SMART EDITOR</div>
       <div class="tab" onclick="switchTab('custom')">🔍 FIND & REPLACE</div>
       <div class="tab" onclick="switchTab('log')">📋 CHANGE LOG</div>
     </div>
 
-    <!-- SMART EDITOR TAB -->
+    <!-- SMART EDITOR -->
     <div class="tab-content active" id="tab-smart">
-      <div class="main-grid">
-
-        <!-- LEFT: Current Values -->
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-dot dot-red"></div>
-            <div class="panel-dot dot-yellow"></div>
-            <div class="panel-dot dot-green"></div>
-            DETECTED VALUES
-          </div>
-          <div class="panel-body" id="detectedPanel">
-            <div class="empty-state"><div class="big-icon">🔍</div><p>Loading detected values...</p></div>
-          </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-dot dot-green"></div>
+          ✏️ SMART EDITOR — OLD VALUE → NEW VALUE
         </div>
-
-        <!-- RIGHT: New Values -->
-        <div class="panel">
-          <div class="panel-header">
-            <div class="panel-dot dot-green"></div>
-            ✏️ NEW VALUES — ENTER CHANGES
-          </div>
-          <div class="panel-body" id="editPanel">
-            <div class="empty-state"><div class="big-icon">✏️</div><p>Loading editor...</p></div>
-          </div>
-          <div class="action-bar">
-            <button class="btn btn-primary" onclick="applySmartChanges()" style="flex:1;">⚡ APPLY ALL CHANGES</button>
-            <button class="btn btn-success" onclick="downloadHTML()" style="flex:1;">💾 DOWNLOAD HTML</button>
-          </div>
+        <div class="panel-body" id="smartEditorBody">
+          <div class="empty-state">Loading...</div>
         </div>
-
+        <div class="action-bar">
+          <button class="btn btn-primary" onclick="applySmartChanges()" style="flex:1;">⚡ APPLY ALL CHANGES</button>
+          <button class="btn btn-success" onclick="downloadHTML()" style="flex:1;">💾 DOWNLOAD HTML</button>
+        </div>
       </div>
     </div>
 
-    <!-- FIND & REPLACE TAB -->
+    <!-- FIND & REPLACE -->
     <div class="tab-content" id="tab-custom">
       <div class="panel">
-        <div class="panel-header">
-          <div class="panel-dot dot-cyan"></div>
-          🔍 CUSTOM FIND & REPLACE
-        </div>
+        <div class="panel-header"><div class="panel-dot dot-cyan"></div>🔍 CUSTOM FIND & REPLACE</div>
         <div class="panel-body">
-          <p style="font-size:12px;color:var(--text3);margin-bottom:16px;font-family:'Share Tech Mono',monospace;">
-            HTML mein koi bhi text dhundo aur replace karo. Case-sensitive.
-          </p>
-          <div id="customReplaceRows">
-            <!-- Rows added dynamically -->
-          </div>
+          <p style="font-size:11px;color:var(--text3);margin-bottom:14px;font-family:'Share Tech Mono',monospace;">Koi bhi text dhundo aur replace karo. Case-sensitive.</p>
+          <div id="customReplaceRows"></div>
           <button class="btn btn-primary btn-sm" onclick="addCustomRow()" style="margin-top:8px;">+ ADD ROW</button>
-          <div style="margin-top:16px;">
-            <button class="btn btn-success" onclick="applyCustomReplace()" style="padding:12px 32px;">⚡ APPLY REPLACEMENTS</button>
+          <div style="margin-top:14px;">
+            <button class="btn btn-success" onclick="applyCustomReplace()">⚡ APPLY REPLACEMENTS</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CHANGE LOG TAB -->
+    <!-- CHANGE LOG -->
     <div class="tab-content" id="tab-log">
       <div class="panel">
-        <div class="panel-header">
-          <div class="panel-dot dot-yellow"></div>
-          📋 CHANGE LOG
-        </div>
-        <div class="panel-body">
-          <div id="changeLogContent">
-            <div class="empty-state"><div class="big-icon">📋</div><p>Koi changes nahi kiye abhi tak.</p></div>
-          </div>
+        <div class="panel-header"><div class="panel-dot dot-yellow"></div>📋 CHANGE LOG</div>
+        <div class="panel-body" id="changeLogContent">
+          <div class="empty-state">Koi changes nahi kiye abhi tak.</div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-  </div><!-- /editorArea -->
-</div><!-- /container -->
-
-<!-- Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// ══════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════
-let originalHTML = '';
-let currentHTML = '';
-let fileName = '';
-let changeLogs = [];
+let originalHTML = '', currentHTML = '', fileName = '', changeLogs = [];
 
-// Field definitions - what we detect and edit
 const SMART_FIELDS = [
-  {
-    group: '🏷️ APP IDENTITY',
-    fields: [
-      { id: 'title', label: 'App Title (<title>)', detect: detectTitle, apply: applyTitle },
-      { id: 'minDeposit', label: 'Min Deposit Amount', detect: detectMinDeposit, apply: applyMinDeposit },
-    ]
-  },
-  {
-    group: '🔗 MAIN URLs',
-    fields: [
-      { id: 'registerUrl', label: 'REGISTER_URL', detect: detectVar('REGISTER_URL'), apply: applyVar('REGISTER_URL') },
-      { id: 'depositUrl', label: 'DEPOSIT_URL', detect: detectVar('DEPOSIT_URL'), apply: applyVar('DEPOSIT_URL') },
-      { id: 'wingoUrl', label: 'WINGO_URL', detect: detectVar('WINGO_URL'), apply: applyVar('WINGO_URL') },
-      { id: 'telegramUrl', label: 'TELEGRAM_URL', detect: detectVar('TELEGRAM_URL'), apply: applyVar('TELEGRAM_URL') },
-    ]
-  },
-  {
-    group: '🌐 DOMAIN (replaces domain in all URLs)',
-    fields: [
-      { id: 'domainReplace', label: 'Replace All Domain (e.g. sikkimgg.vip → newdomain.com)', detect: detectMainDomain, apply: null, special: 'domain' },
-    ]
-  },
-  {
-    group: '🔑 INVITATION CODE',
-    fields: [
-      { id: 'inviteCode', label: 'Invitation Code', detect: detectInviteCode, apply: applyInviteCode },
-    ]
-  },
-  {
-    group: '🔥 FIREBASE CONFIG',
-    fields: [
-      { id: 'fb_apiKey', label: 'apiKey', detect: detectFb('apiKey'), apply: applyFb('apiKey') },
-      { id: 'fb_authDomain', label: 'authDomain', detect: detectFb('authDomain'), apply: applyFb('authDomain') },
-      { id: 'fb_projectId', label: 'projectId', detect: detectFb('projectId'), apply: applyFb('projectId') },
-      { id: 'fb_storageBucket', label: 'storageBucket', detect: detectFb('storageBucket'), apply: applyFb('storageBucket') },
-      { id: 'fb_messagingSenderId', label: 'messagingSenderId', detect: detectFb('messagingSenderId'), apply: applyFb('messagingSenderId') },
-      { id: 'fb_appId', label: 'appId', detect: detectFb('appId'), apply: applyFb('appId') },
-      { id: 'fb_databaseURL', label: 'databaseURL', detect: detectFb('databaseURL'), apply: applyFb('databaseURL') },
-    ]
-  },
-  {
-    group: '🗄️ FIREBASE DB PATH',
-    fields: [
-      { id: 'rtdbPath', label: 'RTDB Root Path (e.g. zayrosikkim)', detect: detectRtdbPath, apply: applyRtdbPath },
-    ]
-  }
+  { group: '🏷️ APP IDENTITY', fields: [
+    { id: 'title', label: 'App Title (<title>)', detect: detectTitle, apply: applyTitle },
+    { id: 'minDeposit', label: 'Min Deposit Amount', detect: detectMinDeposit, apply: applyMinDeposit },
+  ]},
+  { group: '🔗 MAIN URLs', fields: [
+    { id: 'registerUrl', label: 'REGISTER_URL', detect: detectVar('REGISTER_URL'), apply: applyVar('REGISTER_URL') },
+    { id: 'depositUrl', label: 'DEPOSIT_URL', detect: detectVar('DEPOSIT_URL'), apply: applyVar('DEPOSIT_URL') },
+    { id: 'wingoUrl', label: 'WINGO_URL', detect: detectVar('WINGO_URL'), apply: applyVar('WINGO_URL') },
+    { id: 'telegramUrl', label: 'TELEGRAM_URL', detect: detectVar('TELEGRAM_URL'), apply: applyVar('TELEGRAM_URL') },
+  ]},
+  { group: '🌐 DOMAIN REPLACE (sabhi URLs mein domain badlega)', fields: [
+    { id: 'domainReplace', label: 'Naya Domain (e.g. newdomain.com)', detect: detectMainDomain, apply: null, special: 'domain' },
+  ]},
+  { group: '🔑 INVITATION CODE', fields: [
+    { id: 'inviteCode', label: 'Invitation Code', detect: detectInviteCode, apply: applyInviteCode },
+  ]},
+  { group: '🔥 FIREBASE CONFIG', fields: [
+    { id: 'fb_apiKey', label: 'apiKey', detect: detectFb('apiKey'), apply: applyFb('apiKey') },
+    { id: 'fb_authDomain', label: 'authDomain', detect: detectFb('authDomain'), apply: applyFb('authDomain') },
+    { id: 'fb_projectId', label: 'projectId', detect: detectFb('projectId'), apply: applyFb('projectId') },
+    { id: 'fb_storageBucket', label: 'storageBucket', detect: detectFb('storageBucket'), apply: applyFb('storageBucket') },
+    { id: 'fb_messagingSenderId', label: 'messagingSenderId', detect: detectFb('messagingSenderId'), apply: applyFb('messagingSenderId') },
+    { id: 'fb_appId', label: 'appId', detect: detectFb('appId'), apply: applyFb('appId') },
+    { id: 'fb_databaseURL', label: 'databaseURL', detect: detectFb('databaseURL'), apply: applyFb('databaseURL') },
+  ]},
+  { group: '🗄️ FIREBASE DB PATH', fields: [
+    { id: 'rtdbPath', label: 'RTDB Root Path (e.g. zayrosikkim)', detect: detectRtdbPath, apply: applyRtdbPath },
+  ]},
 ];
 
-// ══════════════════════════════════════════════
-//  DETECT FUNCTIONS
-// ══════════════════════════════════════════════
+function detectTitle(h){ const m=h.match(/<title>([^<]*)<\/title>/i); return m?m[1].trim():''; }
+function applyTitle(h,v){ return h.replace(/<title>[^<]*<\/title>/i,`<title>${v}</title>`); }
+function detectMinDeposit(h){ const m=h.match(/var\s+minDeposit\s*=\s*(\d+)/); return m?m[1]:''; }
+function applyMinDeposit(h,v){ return h.replace(/var\s+minDeposit\s*=\s*\d+/,`var minDeposit=${v}`); }
+function detectVar(n){ return function(h){ const m=h.match(new RegExp(`var\\s+${n}\\s*=\\s*["']([^"']+)["']`)); return m?m[1]:''; }; }
+function applyVar(n){ return function(h,v){ return h.replace(new RegExp(`(var\\s+${n}\\s*=\\s*["'])([^"']+)(["'])`),`$1${v}$3`); }; }
+function detectMainDomain(h){ const m=h.match(/var\s+REGISTER_URL\s*=\s*["'](https?:\/\/(?:www\.)?([^/#"']+))/); return m?m[2]:''; }
+function detectInviteCode(h){ const m=h.match(/invitationCode=(\d+)/i); return m?m[1]:''; }
+function applyInviteCode(h,v){ return h.replace(/invitationCode=\d+/gi,`invitationCode=${v}`); }
+function detectFb(k){ return function(h){ const m=h.match(new RegExp(`${k}\\s*:\\s*["']([^"']+)["']`)); return m?m[1]:''; }; }
+function applyFb(k){ return function(h,v){ return h.replace(new RegExp(`(${k}\\s*:\\s*["'])([^"']+)(["'])`),`$1${v}$3`); }; }
+function detectRtdbPath(h){ const m=h.match(/rtdb\.ref\(["']([^/"']+)\//); return m?m[1]:''; }
+function applyRtdbPath(h,v){ const cur=detectRtdbPath(h); if(!cur) return h; return h.split(`"${cur}/`).join(`"${v}/`).split(`'${cur}/`).join(`'${v}/`); }
 
-function detectTitle(html) {
-  const m = html.match(/<title>([^<]*)<\/title>/i);
-  return m ? m[1].trim() : '';
-}
-function applyTitle(html, val) {
-  const old = html.match(/<title>[^<]*<\/title>/i)?.[0];
-  if (!old) return html;
-  return html.replace(old, `<title>${val}</title>`);
-}
+const uploadZone=document.getElementById('uploadZone');
+const fileInput=document.getElementById('fileInput');
+uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('drag-over');});
+uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop',e=>{e.preventDefault();uploadZone.classList.remove('drag-over');const f=e.dataTransfer.files[0];if(f)loadFile(f);});
+fileInput.addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0]);});
 
-function detectMinDeposit(html) {
-  const m = html.match(/var\s+minDeposit\s*=\s*(\d+)/);
-  return m ? m[1] : '';
-}
-function applyMinDeposit(html, val) {
-  return html.replace(/var\s+minDeposit\s*=\s*\d+/, `var minDeposit=${val}`);
-}
-
-function detectVar(varName) {
-  return function(html) {
-    const re = new RegExp(`var\\s+${varName}\\s*=\\s*["']([^"']+)["']`);
-    const m = html.match(re);
-    return m ? m[1] : '';
+function loadFile(file){
+  if(!file.name.match(/\.html?$/i)){showToast('❌ Sirf .html files!','error');return;}
+  fileName=file.name;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    originalHTML=e.target.result; currentHTML=originalHTML; changeLogs=[];
+    initEditor(); showToast('✅ File loaded: '+fileName,'success');
   };
-}
-function applyVar(varName) {
-  return function(html, val) {
-    return html.replace(
-      new RegExp(`(var\\s+${varName}\\s*=\\s*["'])([^"']+)(["'])`),
-      `$1${val}$3`
-    );
-  };
+  reader.readAsText(file,'utf-8');
 }
 
-function detectMainDomain(html) {
-  // Extract domain from REGISTER_URL
-  const m = html.match(/var\s+REGISTER_URL\s*=\s*["'](https?:\/\/(?:www\.)?([^/#"']+))/);
-  return m ? m[2] : '';
-}
-
-function detectInviteCode(html) {
-  const m = html.match(/invitationCode=(\d+)/i);
-  return m ? m[1] : '';
-}
-function applyInviteCode(html, val) {
-  return html.replace(/invitationCode=\d+/gi, `invitationCode=${val}`);
-}
-
-function detectFb(key) {
-  return function(html) {
-    const re = new RegExp(`${key}\\s*:\\s*["']([^"']+)["']`);
-    const m = html.match(re);
-    return m ? m[1] : '';
-  };
-}
-function applyFb(key) {
-  return function(html, val) {
-    return html.replace(
-      new RegExp(`(${key}\\s*:\\s*["'])([^"']+)(["'])`),
-      `$1${val}$3`
-    );
-  };
-}
-
-function detectRtdbPath(html) {
-  const m = html.match(/rtdb\.ref\(["']([^/"']+)\//);
-  return m ? m[1] : '';
-}
-function applyRtdbPath(html, val) {
-  // Replace all rtdb.ref paths root
-  const current = detectRtdbPath(html);
-  if (!current) return html;
-  return html.split(`"${current}/`).join(`"${val}/`)
-             .split(`'${current}/`).join(`'${val}/`);
-}
-
-// ══════════════════════════════════════════════
-//  FILE HANDLING
-// ══════════════════════════════════════════════
-
-const uploadZone = document.getElementById('uploadZone');
-const fileInput  = document.getElementById('fileInput');
-
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault(); uploadZone.classList.remove('drag-over');
-  const f = e.dataTransfer.files[0];
-  if (f) loadFile(f);
-});
-fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
-
-function loadFile(file) {
-  if (!file.name.match(/\.html?$/i)) { showToast('❌ Sirf .html files!', 'error'); return; }
-  fileName = file.name;
-  const reader = new FileReader();
-  reader.onload = e => {
-    originalHTML = e.target.result;
-    currentHTML = originalHTML;
-    changeLogs = [];
-    initEditor();
-    showToast('✅ File loaded: ' + fileName, 'success');
-  };
-  reader.readAsText(file, 'utf-8');
-}
-
-// ══════════════════════════════════════════════
-//  EDITOR INIT
-// ══════════════════════════════════════════════
-
-function initEditor() {
+function initEditor(){
   document.getElementById('editorArea').classList.remove('hidden');
-  document.getElementById('filenameBadge').textContent = fileName;
-  document.getElementById('fileSizeKB').textContent = (originalHTML.length / 1024).toFixed(1) + ' KB';
-
-  renderDetectedPanel();
-  renderEditPanel();
-  updateStats();
-  initCustomRows();
-  updateChangeLog();
-
-  // Scroll to editor
-  document.getElementById('editorArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('filenameBadge').textContent=fileName;
+  document.getElementById('fileSizeKB').textContent=(originalHTML.length/1024).toFixed(1)+' KB';
+  renderSmartEditor(); updateStats(); initCustomRows(); updateChangeLog();
+  document.getElementById('editorArea').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function renderDetectedPanel() {
-  const panel = document.getElementById('detectedPanel');
-  let html = '';
-
-  let totalLinks = 0, totalFb = 0;
-
-  for (const group of SMART_FIELDS) {
-    html += `<div class="field-group">
-      <div class="field-group-title">${group.group}</div>`;
-    for (const field of group.fields) {
-      const val = field.detect(currentHTML);
-      if (field.group && field.group.includes('FIREBASE')) totalFb++;
-      if (field.group && field.group.includes('URL')) totalLinks++;
-      html += `<div class="field-row">
-        <div>
-          <span class="field-label">${field.label}</span>
-          <span class="field-val ${val ? '' : 'empty'}" id="detected_${field.id}">
-            ${val ? escHtml(val) : '— not found —'}
-          </span>
-        </div>
-        <div class="arrow-icon" style="grid-column:2;"></div>
-        <div style="grid-column:3;display:none;"></div>
-      </div>`;
-    }
-    html += `</div>`;
-  }
-
-  document.getElementById('linksCount').textContent = document.querySelectorAll('.field-val:not(.empty)').length;
-  document.getElementById('fbFound').textContent = totalFb;
-  panel.innerHTML = html;
-}
-
-function renderEditPanel() {
-  const panel = document.getElementById('editPanel');
-  let html = '';
-
-  for (const group of SMART_FIELDS) {
-    html += `<div class="field-group">
-      <div class="field-group-title">${group.group}</div>`;
-    for (const field of group.fields) {
-      const currentVal = field.detect(currentHTML);
-      html += `<div style="padding:10px 14px;border-bottom:1px solid rgba(42,42,74,0.5);">
+function renderSmartEditor(){
+  const body=document.getElementById('smartEditorBody');
+  let html='';
+  for(const group of SMART_FIELDS){
+    html+=`<div class="field-group"><div class="field-group-title">${group.group}</div>`;
+    for(const field of group.fields){
+      const oldVal=field.detect(currentHTML);
+      const isDomain=field.special==='domain';
+      const oldDisplay=isDomain?(oldVal?'Current domain: '+oldVal:'— not detected —'):oldVal;
+      html+=`<div class="field-item">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
           <span class="field-label" style="margin-bottom:0;">${field.label}</span>
-          ${currentVal ? `<span class="badge badge-green">✓ DETECTED</span>` : `<span class="badge badge-red">NOT FOUND</span>`}
+          ${oldVal?`<span class="badge badge-green">✓ DETECTED</span>`:`<span class="badge badge-red">NOT FOUND</span>`}
         </div>
-        <textarea class="field-input" id="input_${field.id}" 
-          placeholder="${currentVal ? 'Current: ' + escHtml(currentVal.substring(0, 50)) + (currentVal.length > 50 ? '...' : '') : 'Enter new value...'}"
-          rows="2"
-          oninput="this.classList.toggle('changed', this.value.trim() !== '')"
-        ></textarea>
+        <div class="old-val ${oldVal?'':'empty'}" title="Current value">${oldVal?esc(oldDisplay):'— not found in HTML —'}</div>
+        <div class="arrow-divider">↓ NEW VALUE</div>
+        <div class="new-label">✏️ Naya value enter karo:</div>
+        <textarea class="field-input" id="input_${field.id}" rows="2"
+          placeholder="${oldVal?'Current: '+esc(oldVal.substring(0,50))+(oldVal.length>50?'...':''):'Koi value nahi mili, phir bhi try kar sakte ho...'}"
+          oninput="this.classList.toggle('changed',this.value.trim()!=='')"></textarea>
       </div>`;
     }
-    html += `</div>`;
+    html+=`</div>`;
   }
-
-  panel.innerHTML = html;
+  body.innerHTML=html;
 }
 
-// ══════════════════════════════════════════════
-//  APPLY CHANGES
-// ══════════════════════════════════════════════
-
-function applySmartChanges() {
-  let html = currentHTML;
-  let changeCount = 0;
-
-  // Special: domain replace
-  const domainInput = document.getElementById('input_domainReplace');
-  if (domainInput && domainInput.value.trim()) {
-    const newDomain = domainInput.value.trim();
-    const oldDomain = detectMainDomain(html);
-    if (oldDomain && oldDomain !== newDomain) {
-      const count = (html.split(oldDomain).length - 1);
-      html = html.split(oldDomain).join(newDomain);
-      logChange(oldDomain, newDomain, count);
-      changeCount += count;
-      showToast(`🌐 Domain replaced: ${oldDomain} → ${newDomain} (${count} places)`, 'success');
+function applySmartChanges(){
+  let html=currentHTML; let changeCount=0;
+  const di=document.getElementById('input_domainReplace');
+  if(di&&di.value.trim()){
+    const newD=di.value.trim(); const oldD=detectMainDomain(html);
+    if(oldD&&oldD!==newD){
+      const n=(html.split(oldD).length-1);
+      html=html.split(oldD).join(newD);
+      logChange(oldD,newD,n); changeCount+=n;
+      showToast(`🌐 Domain replaced: ${oldD} → ${newD} (${n} places)`,'success');
     }
-    domainInput.value = '';
+    di.value=''; di.classList.remove('changed');
   }
-
-  // All other fields
-  for (const group of SMART_FIELDS) {
-    for (const field of group.fields) {
-      if (field.special === 'domain') continue; // handled above
-      const input = document.getElementById('input_' + field.id);
-      if (!input || !input.value.trim()) continue;
-
-      const newVal = input.value.trim();
-      const oldVal = field.detect(html);
-
-      if (!oldVal) {
-        showToast(`⚠️ ${field.label}: Not found in HTML, skipped.`, 'error');
-        continue;
-      }
-      if (oldVal === newVal) continue;
-
-      const newHtml = field.apply(html, newVal);
-      if (newHtml === html) {
-        showToast(`⚠️ ${field.label}: Apply failed.`, 'error');
-        continue;
-      }
-
-      const count = (html.split(oldVal).length - 1);
-      logChange(oldVal, newVal, count);
-      html = newHtml;
-      changeCount++;
-      input.value = '';
-      input.classList.remove('changed');
+  for(const group of SMART_FIELDS){
+    for(const field of group.fields){
+      if(field.special==='domain') continue;
+      const inp=document.getElementById('input_'+field.id);
+      if(!inp||!inp.value.trim()) continue;
+      const newVal=inp.value.trim(); const oldVal=field.detect(html);
+      if(!oldVal){showToast(`⚠️ ${field.label}: HTML mein nahi mila, skip.`,'error');continue;}
+      if(oldVal===newVal) continue;
+      const newHtml=field.apply(html,newVal);
+      if(newHtml===html){showToast(`⚠️ ${field.label}: Apply failed.`,'error');continue;}
+      const cnt=(html.split(oldVal).length-1);
+      logChange(oldVal,newVal,cnt); html=newHtml; changeCount++;
+      inp.value=''; inp.classList.remove('changed');
     }
   }
-
-  if (changeCount === 0) {
-    showToast('ℹ️ Koi changes nahi kiye — fields empty hain.', 'info');
-    return;
-  }
-
-  currentHTML = html;
-  document.getElementById('changesCount').textContent = changeLogs.length;
-  renderDetectedPanel();
-  updateStats();
-  updateChangeLog();
-  showToast(`✅ ${changeCount} changes applied successfully!`, 'success');
+  if(changeCount===0){showToast('ℹ️ Koi fields nahi bhare — pehle values enter karo.','info');return;}
+  currentHTML=html;
+  renderSmartEditor(); updateStats(); updateChangeLog();
+  showToast(`✅ ${changeCount} changes apply ho gaye!`,'success');
 }
 
-function logChange(old, nw, count) {
-  changeLogs.push({ old, new: nw, count, time: new Date().toLocaleTimeString() });
+function initCustomRows(){ document.getElementById('customReplaceRows').innerHTML=''; addCustomRow(); addCustomRow(); }
+function addCustomRow(){
+  const c=document.getElementById('customReplaceRows'); const id=Date.now();
+  const d=document.createElement('div'); d.className='custom-replace-row'; d.id='row_'+id;
+  d.innerHTML=`
+    <div><span class="field-label">FIND (purana text)</span><input type="text" class="field-input custom-find" style="height:36px;" placeholder="Old text..."></div>
+    <div style="text-align:center;padding-top:20px;color:var(--accent);font-size:16px;">→</div>
+    <div><span class="field-label">REPLACE (naya text)</span><input type="text" class="field-input custom-replace-val" style="height:36px;" placeholder="New text..."></div>
+    <button class="btn btn-danger btn-sm" onclick="document.getElementById('row_${id}').remove()" style="margin-top:20px;">✕</button>`;
+  c.appendChild(d);
 }
-
-function updateChangeLog() {
-  const el = document.getElementById('changeLogContent');
-  if (changeLogs.length === 0) {
-    el.innerHTML = '<div class="empty-state"><div class="big-icon">📋</div><p>Koi changes nahi kiye abhi tak.</p></div>';
-    return;
-  }
-  el.innerHTML = `<div class="change-log">` +
-    changeLogs.slice().reverse().map(c => `
-      <div class="log-entry">
-        🕐 ${c.time} &nbsp;|&nbsp; 
-        <span class="old">${escHtml(c.old.substring(0,40))}${c.old.length>40?'...':''}</span>
-        &nbsp;→&nbsp;
-        <span class="new">${escHtml(c.new.substring(0,40))}${c.new.length>40?'...':''}</span>
-        &nbsp;<span class="count">(${c.count}x)</span>
-      </div>`).join('') +
-    `</div>`;
-}
-
-// ══════════════════════════════════════════════
-//  CUSTOM FIND & REPLACE
-// ══════════════════════════════════════════════
-
-function initCustomRows() {
-  document.getElementById('customReplaceRows').innerHTML = '';
-  addCustomRow();
-  addCustomRow();
-}
-
-function addCustomRow() {
-  const container = document.getElementById('customReplaceRows');
-  const rowId = Date.now();
-  const div = document.createElement('div');
-  div.className = 'custom-replace-row';
-  div.id = 'row_' + rowId;
-  div.innerHTML = `
-    <div>
-      <span class="field-label">FIND (purana text)</span>
-      <input type="text" class="field-input custom-find" style="resize:none;height:38px;" placeholder="Old text...">
-    </div>
-    <div class="arrow-icon" style="text-align:center;padding-top:18px;">→</div>
-    <div>
-      <span class="field-label">REPLACE WITH (naya text)</span>
-      <input type="text" class="field-input custom-replace-val" style="resize:none;height:38px;" placeholder="New text...">
-    </div>
-    <button class="btn btn-danger btn-sm" onclick="document.getElementById('row_${rowId}').remove()" style="margin-top:18px;">✕</button>
-  `;
-  container.appendChild(div);
-}
-
-function applyCustomReplace() {
-  const rows = document.querySelectorAll('.custom-replace-row');
-  let html = currentHTML;
-  let count = 0;
-
-  rows.forEach(row => {
-    const find = row.querySelector('.custom-find').value;
-    const rep  = row.querySelector('.custom-replace-val').value;
-    if (!find.trim()) return;
-
-    const n = (html.split(find).length - 1);
-    if (n === 0) { showToast(`❌ "${find}" not found!`, 'error'); return; }
-
-    html = html.split(find).join(rep);
-    logChange(find, rep, n);
-    count += n;
-    row.querySelector('.custom-find').value = '';
-    row.querySelector('.custom-replace-val').value = '';
+function applyCustomReplace(){
+  const rows=document.querySelectorAll('.custom-replace-row'); let html=currentHTML; let count=0;
+  rows.forEach(row=>{
+    const find=row.querySelector('.custom-find').value;
+    const rep=row.querySelector('.custom-replace-val').value;
+    if(!find.trim()) return;
+    const n=(html.split(find).length-1);
+    if(n===0){showToast(`❌ "${find}" nahi mila!`,'error');return;}
+    html=html.split(find).join(rep); logChange(find,rep,n); count+=n;
+    row.querySelector('.custom-find').value=''; row.querySelector('.custom-replace-val').value='';
   });
-
-  if (count === 0) { showToast('ℹ️ Koi valid replacement nahi mila.', 'info'); return; }
-
-  currentHTML = html;
-  document.getElementById('changesCount').textContent = changeLogs.length;
-  renderDetectedPanel();
-  updateStats();
-  updateChangeLog();
-  showToast(`✅ ${count} replacements done!`, 'success');
+  if(count===0){showToast('ℹ️ Koi valid replacement nahi mila.','info');return;}
+  currentHTML=html; renderSmartEditor(); updateStats(); updateChangeLog();
+  showToast(`✅ ${count} replacements done!`,'success');
 }
 
-// ══════════════════════════════════════════════
-//  UTILS
-// ══════════════════════════════════════════════
-
-function updateStats() {
-  document.getElementById('changesCount').textContent = changeLogs.length;
-  const urls = (currentHTML.match(/https?:\/\/[^\s'"<>]+/g) || []).length;
-  document.getElementById('linksCount').textContent = urls;
-  const fbFields = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId', 'databaseURL']
-    .filter(k => currentHTML.includes(k + ':') || currentHTML.includes(k + ':"')).length;
-  document.getElementById('fbFound').textContent = fbFields;
+function logChange(o,n,c){ changeLogs.push({old:o,new:n,count:c,time:new Date().toLocaleTimeString()}); }
+function updateChangeLog(){
+  const el=document.getElementById('changeLogContent');
+  if(changeLogs.length===0){el.innerHTML='<div class="empty-state">Koi changes nahi kiye abhi tak.</div>';return;}
+  el.innerHTML=`<div class="change-log">`+changeLogs.slice().reverse().map(c=>`
+    <div class="log-entry">🕐 ${c.time} &nbsp;|&nbsp;
+      <span class="old">${esc(c.old.substring(0,35))}${c.old.length>35?'...':''}</span>
+      &nbsp;→&nbsp;
+      <span class="new">${esc(c.new.substring(0,35))}${c.new.length>35?'...':''}</span>
+      &nbsp;<span class="cnt">(${c.count}x)</span>
+    </div>`).join('')+`</div>`;
 }
-
-function downloadHTML() {
-  if (!currentHTML) { showToast('❌ Pehle file load karo!', 'error'); return; }
-  const blob = new Blob([currentHTML], { type: 'text/html' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = fileName.replace('.html', '_edited.html');
-  a.click();
-  showToast('💾 File downloaded: ' + a.download, 'success');
+function updateStats(){
+  document.getElementById('changesCount').textContent=changeLogs.length;
+  const urls=(currentHTML.match(/https?:\/\/[^\s'"<>]+/g)||[]).length;
+  document.getElementById('linksCount').textContent=urls;
+  const fb=['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId','databaseURL'].filter(k=>currentHTML.includes(k+':')).length;
+  document.getElementById('fbFound').textContent=fb;
 }
-
-function resetAll() {
-  if (!confirm('Sab changes reset kar do? Original file wapas aayegi.')) return;
-  currentHTML = originalHTML;
-  changeLogs = [];
-  renderDetectedPanel();
-  renderEditPanel();
-  updateStats();
-  updateChangeLog();
-  showToast('🔄 Reset! Original HTML restored.', 'info');
+function downloadHTML(){
+  if(!currentHTML){showToast('❌ Pehle file load karo!','error');return;}
+  const blob=new Blob([currentHTML],{type:'text/html'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=fileName.replace('.html','_edited.html'); a.click();
+  showToast('💾 Downloaded: '+a.download,'success');
 }
-
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    const names = ['smart','custom','log'];
-    t.classList.toggle('active', names[i] === name);
-  });
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
+function resetAll(){
+  if(!confirm('Sab changes reset kar do? Original file wapas aayegi.')) return;
+  currentHTML=originalHTML; changeLogs=[];
+  renderSmartEditor(); updateStats(); updateChangeLog();
+  showToast('🔄 Reset! Original HTML restored.','info');
 }
-
-function showToast(msg, type = 'info') {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = msg;
-  container.appendChild(toast);
-  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+function switchTab(name){
+  const names=['smart','custom','log'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',names[i]===name));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
 }
-
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function showToast(msg,type='info'){
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div'); t.className=`toast ${type}`; t.textContent=msg;
+  c.appendChild(t); setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},3000);
 }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 </script>
 </body>
 </html>
